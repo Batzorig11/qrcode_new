@@ -19,11 +19,11 @@ type DecodeStatus = "idle" | "scanning" | "success" | "not-found" | "error";
 type CopyState = "idle" | "copied" | "error";
 
 const statusStyles: Record<DecodeStatus, string> = {
-  idle: "border-white/10 bg-white/5 text-indigo-100",
-  scanning: "border-cyan-300/30 bg-cyan-400/10 text-cyan-100",
-  success: "border-emerald-300/30 bg-emerald-400/10 text-emerald-100",
-  "not-found": "border-amber-300/30 bg-amber-400/10 text-amber-100",
-  error: "border-rose-300/30 bg-rose-400/10 text-rose-100",
+  idle: "border-[#4c566a] bg-[#3b4252] text-[#d8dee9]",
+  scanning: "border-[#88c0d0]/30 bg-[#88c0d0]/10 text-[#88c0d0]",
+  success: "border-[#a3be8c]/30 bg-[#a3be8c]/10 text-[#a3be8c]",
+  "not-found": "border-[#ebcb8b]/30 bg-[#ebcb8b]/10 text-[#ebcb8b]",
+  error: "border-[#bf616a]/30 bg-[#bf616a]/10 text-[#bf616a]",
 };
 
 const statusMessages: Record<DecodeStatus, string> = {
@@ -194,26 +194,26 @@ export default function QRDecoder() {
   };
 
   return (
-    <section className="w-full max-w-6xl mx-auto px-4 md:px-8">
-      <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-3xl p-6 md:p-8 shadow-2xl">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6">
-          <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-            <ScanQrCode className="w-6 h-6" />
+    <section className="w-full max-w-6xl mx-auto px-4 md:px-8 h-full">
+      <div className="bg-[#3b4252] border border-[#4c566a] rounded-3xl p-6 md:p-8 shadow-2xl h-full flex flex-col">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6 shrink-0">
+          <h2 className="text-2xl font-bold text-[#eceff4] flex items-center gap-2">
+            <ScanQrCode className="w-6 h-6 text-[#88c0d0]" />
             Decode QR Code
           </h2>
 
           <button
             type="button"
             onClick={resetDecoder}
-            className="inline-flex items-center justify-center gap-2 self-start sm:self-auto border border-white/15 bg-white/5 hover:bg-white/10 text-indigo-100 font-semibold py-2.5 px-4 rounded-xl transition-all active:scale-95"
+            className="inline-flex items-center justify-center gap-2 self-start sm:self-auto border border-[#4c566a] bg-[#434c5e] hover:bg-[#4c566a] text-[#d8dee9] font-semibold py-2.5 px-4 rounded-xl transition-all active:scale-95"
           >
-            <RefreshCw className="w-4 h-4" />
+            <RefreshCw className="w-4 h-4 text-[#88c0d0]" />
             Reset
           </button>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] gap-6">
-          <div className="space-y-4">
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] gap-6 flex-1 min-h-0">
+          <div className="space-y-4 flex flex-col">
             <input
               ref={fileInputRef}
               type="file"
@@ -239,20 +239,20 @@ export default function QRDecoder() {
               onDragLeave={() => setIsDragging(false)}
               onDrop={handleDrop}
               className={cn(
-                "min-h-[260px] cursor-pointer rounded-2xl border border-dashed border-white/20 bg-white/5 p-6 flex flex-col items-center justify-center text-center transition-all focus:outline-none focus:ring-2 focus:ring-cyan-400",
-                isDragging && "border-cyan-300 bg-cyan-400/10",
+                "flex-1 cursor-pointer rounded-2xl border-2 border-dashed border-[#4c566a] bg-[#2e3440] p-6 flex flex-col items-center justify-center text-center transition-all focus:outline-none focus:ring-2 focus:ring-[#88c0d0]",
+                isDragging && "border-[#88c0d0] bg-[#88c0d0]/10",
               )}
             >
-              <div className="h-14 w-14 rounded-2xl bg-cyan-400/15 text-cyan-100 flex items-center justify-center mb-4">
+              <div className="h-14 w-14 rounded-2xl bg-[#3b4252] text-[#88c0d0] flex items-center justify-center mb-4 border border-[#4c566a] shadow-lg">
                 <ImageUp className="w-7 h-7" />
               </div>
-              <p className="text-lg font-semibold text-white">Upload QR image</p>
-              <p className="mt-2 text-sm text-indigo-200/70 break-all">
+              <p className="text-lg font-semibold text-[#eceff4]">Upload QR image</p>
+              <p className="mt-2 text-sm text-[#d8dee9]/70 break-all">
                 {fileName || "PNG, JPG, WebP, or GIF"}
               </p>
             </div>
 
-            <div className={cn("rounded-2xl border px-4 py-3 flex items-center gap-3", statusStyles[status])}>
+            <div className={cn("rounded-2xl border px-4 py-3 flex items-center gap-3 shrink-0", statusStyles[status])}>
               {status === "scanning" ? (
                 <LoaderCircle className="w-5 h-5 shrink-0 animate-spin" />
               ) : status === "success" ? (
@@ -266,39 +266,37 @@ export default function QRDecoder() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 gap-4">
-            <div className="min-h-[260px] rounded-2xl border border-white/10 bg-slate-950/35 p-4 flex items-center justify-center overflow-hidden">
+          <div className="grid grid-cols-1 gap-4 flex flex-col">
+            <div className="flex-1 rounded-2xl border border-[#4c566a] bg-[#2e3440] p-4 flex items-center justify-center overflow-hidden shadow-inner min-h-[200px]">
               {previewUrl ? (
-                // Blob preview URLs cannot be optimized by next/image.
-                // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={previewUrl}
                   alt={fileName ? `Uploaded QR source: ${fileName}` : "Uploaded QR source"}
-                  className="max-h-[320px] w-full rounded-xl object-contain"
+                  className="max-h-full w-full rounded-xl object-contain shadow-2xl"
                 />
               ) : (
-                <div className="text-center text-indigo-200/50">
-                  <ScanQrCode className="mx-auto mb-3 h-12 w-12" />
-                  <span className="text-sm font-medium">Preview</span>
+                <div className="text-center text-[#4c566a]">
+                  <ScanQrCode className="mx-auto mb-3 h-12 w-12 opacity-20" />
+                  <span className="text-sm font-medium">Image Preview</span>
                 </div>
               )}
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-3 shrink-0">
               <div className="flex items-center justify-between gap-3">
-                <label htmlFor="decoded-content" className="text-sm font-medium text-indigo-100">
+                <label htmlFor="decoded-content" className="text-sm font-medium text-[#d8dee9]">
                   Decoded content
                 </label>
                 <button
                   type="button"
                   onClick={copyDecodedText}
                   disabled={!decodedText}
-                  className="inline-flex min-w-24 items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-sm font-semibold text-indigo-100 transition-all hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-45 active:scale-95"
+                  className="inline-flex min-w-24 items-center justify-center gap-2 rounded-xl border border-[#4c566a] bg-[#434c5e] px-3 py-2 text-sm font-semibold text-[#d8dee9] transition-all hover:bg-[#4c566a] disabled:cursor-not-allowed disabled:opacity-45 active:scale-95"
                 >
                   {copyState === "copied" ? (
-                    <ClipboardCheck className="w-4 h-4" />
+                    <ClipboardCheck className="w-4 h-4 text-[#a3be8c]" />
                   ) : (
-                    <ClipboardCopy className="w-4 h-4" />
+                    <ClipboardCopy className="w-4 h-4 text-[#88c0d0]" />
                   )}
                   {copyState === "copied" ? "Copied" : "Copy"}
                 </button>
@@ -309,11 +307,11 @@ export default function QRDecoder() {
                 readOnly
                 value={decodedText}
                 placeholder="Decoded text appears here"
-                className="min-h-32 w-full resize-y rounded-2xl border border-white/10 bg-white/5 p-4 text-sm leading-6 text-white placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+                className="min-h-24 w-full resize-y rounded-2xl border border-[#4c566a] bg-[#2e3440] p-4 text-sm leading-6 text-[#eceff4] placeholder:text-[#4c566a] focus:outline-none focus:ring-2 focus:ring-[#88c0d0] shadow-inner"
               />
 
               {copyState === "error" ? (
-                <p className="text-sm text-amber-100">Clipboard access was blocked.</p>
+                <p className="text-sm text-[#bf616a]">Clipboard access was blocked.</p>
               ) : null}
             </div>
           </div>
